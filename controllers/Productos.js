@@ -1,30 +1,73 @@
+import { response } from "express";
+import axios from "axios";
 import Productos from "../models/Productos.js";
 
 const postProductos = async (req, res) => {
+    const authHeader = req.headers.authorization
+    let token = ""
     try {
+        if (authHeader){
+            token = authHeader.split(" ")[1];
+        }else{
+            res.status(401).json({ error: "No autorizado" })
+        }
+        
         const {
-            number_rage_id,
+            // numbering_rage_id,
+            identification,
             reference_code,
             observation,
             payment_form,
-            paymet_due_date,
+            // payment_due_date,
             payment_method_code,
             billing_period,
+            customer,
+            items,
         } = req.body;
 
+        // const facturaValida = await axios.post(
+        //     process.env.URL_API,
+        //     {
+        //         number_rage_id,
+        //         reference_code,
+        //         observation,
+        //         payment_form,
+        //         payment_due_date,
+        //         payment_method_code,
+        //         billing_period,
+        //         customer,
+        //         items,
+        //     },
+        //     {
+        //         headers: {Authorization: `Bearer ${token}`},
+        //     }
+        // );
+
+        // let response = facturaValida.data
+
         const producto = new Productos ({
-            number_rage_id,
+            // numbering_rage_id,
+            identification,
             reference_code,
             observation,
             payment_form,
-            paymet_due_date,
+            // payment_due_date,
             payment_method_code,
             billing_period,
+            customer,
+            items,
+            // cufe:response.date.bill.cufe,
+            // url:response.data.bill.public_url,
+            // qr:response.data.bill.qr,
+            // qr_image:response.data.bill.qr_image,
+            // number:response.data.bill.number,
         })
-        producto.save()
-        res.json({producto})
+        await producto.save()
+        res.json({facturaValida: producto})
+        console.log("Correcto");
     } catch (error) {
-        res.status(400).json({error})
+        res.status(400).json({error: error.message})
+        console.log("error",error);
     }
 };
 

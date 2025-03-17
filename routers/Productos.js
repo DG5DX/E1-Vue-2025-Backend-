@@ -5,6 +5,6 @@ import { postProductos, getProductos } from "../controllers/Productos.js";
 
 router.post("/", postProductos)
 
-router.get("products", getProductos)
+router.get("/", getProductos)
 
 export default router;
