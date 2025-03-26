@@ -1,10 +1,9 @@
-import Router from 'express'
-const router = Router();
-
+import Router from "express";
 import { postFactura, getFactura } from "../controllers/Factura.js";
 
-router.post("/", postFactura)
+const router = Router();
 
-router.get("items", getFactura)
+router.post("/", postFactura);
+router.get("/", getFactura);
 
 export default router;
