@@ -31,4 +31,18 @@ const getProductos = async (req, res) => {
 	}
 };
 
-export { postProductos, getProductos };
+const deleteProducto = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const producto = await Productos.findByIdAndDelete(id);
+		if (!producto) {
+			return res.status(404).json({ error: "Producto no encontrado" });
+		}
+		res.json({ message: "Producto eliminado", producto });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+		console.log(error);
+	}
+};
+
+export { postProductos, getProductos, deleteProducto };
