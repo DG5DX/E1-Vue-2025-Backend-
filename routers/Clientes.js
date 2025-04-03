@@ -1,9 +1,14 @@
 import Router from "express";
-import { getCliente, postCliente } from "../controllers/Clientes.js";
+import {
+	deleteCliente,
+	getCliente,
+	postCliente,
+} from "../controllers/Clientes.js";
 
 const router = Router();
 
 router.post("/", postCliente);
 router.get("/", getCliente);
+router.delete("/:id", deleteCliente);
 
 export default router;

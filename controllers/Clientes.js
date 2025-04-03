@@ -21,4 +21,18 @@ const getCliente = async (req, res) => {
 	}
 };
 
-export { postCliente, getCliente };
+const deleteCliente = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const cliente = await Clientes.findByIdAndDelete(id);
+		if (!cliente) {
+			return res.status(404).json({ error: "Cliente no encontrado" });
+		}
+		res.json({ message: "Cliente eliminado", cliente });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+		console.log(error);
+	}
+}
+
+export { postCliente, getCliente, deleteCliente };
