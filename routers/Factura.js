@@ -1,5 +1,4 @@
 import Router from "express";
-
 import { postFactura, getFactura } from "../controllers/Factura.js";
 
 const router = Router();
